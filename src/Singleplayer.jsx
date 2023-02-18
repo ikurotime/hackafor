@@ -18,7 +18,7 @@ export default function Singleplayer() {
     }
   }, [jolin])
   const sendJolin = () => {
-    set(ref(database, 'users/' + user.uid + '/jolin'), jolin + 1)
+    user && set(ref(database, 'users/' + user.uid + '/jolin'), jolin + 1)
     setJolin(jolin + 1)
   }
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function Singleplayer() {
   }, [user])
   return (
     <div className='App'>
-      <div className='Container  gap-8 '>
+      <div className='Container relative gap-8 '>
         <LogOut />
         <SocialButtons className={'absolute top-10 left-10'} />
         <h1>Singleplayer</h1>

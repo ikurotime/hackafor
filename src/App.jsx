@@ -1,23 +1,34 @@
-import { GithubAuthProvider, signInWithPopup } from 'firebase/auth'
-import { useLocation } from 'wouter'
-import { auth, provider } from '../firebase'
-import './App.css'
-import LogOut from './components/LogOut'
-import Menu from './components/Menu'
-import SocialButtons from './components/SocialButtons'
-function App() {
+import { Route } from 'wouter'
+import Index from './Index'
+import Multiplayer from './Multiplayer'
+import Ranking from './Ranking'
+import Singleplayer from './Singleplayer'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../firebase'
+import useStore from '../store'
+import { useState } from 'react'
+import { useEffect } from 'react'
+
+export default function App() {
+  const setUser = useStore((state) => state.setUser)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user)
+      } else {
+        setUser(null)
+      }
+    })
+    return () => unsubscribe()
+  }, [])
+
   return (
-    <div className='App '>
-      <div className='Container relative gap-8 '>
-        <LogOut />
-        <h1 className='text-3xl md:text-5xl'>ElJolinJuego</h1>
-        <div className='flex flex-col  gap-10 p-5'>
-          <SocialButtons />
-          <Menu />
-        </div>
-      </div>
-    </div>
+    <>
+      <Route path='/' component={Index} />
+      <Route path='/singleplayer' component={Singleplayer} />
+      <Route path='/multiplayer' component={Multiplayer} />
+      <Route path='/ranking' component={Ranking} />
+    </>
   )
 }
-
-export default App

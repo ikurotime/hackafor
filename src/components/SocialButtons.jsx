@@ -4,8 +4,9 @@ import { doc, setDoc } from 'firebase/firestore'
 import { useLocation } from 'wouter'
 import { auth, database, db, provider } from '../../firebase'
 import useStore from '../../store'
+import Button from './Button'
 
-export default function SocialButtons({ className }) {
+export default function SocialButtons({ className = '' }) {
   const { user, setUser, setError } = useStore((state) => ({
     user: state.user,
     setUser: state.setUser,
@@ -36,15 +37,10 @@ export default function SocialButtons({ className }) {
         <p>Logged in as {user.displayName}</p>
       ) : (
         <>
-          <button
-            onClick={signInWithGithub}
-            className='bg-slate-600 p-3 text-sm  '
-          >
+          <Button onClick={signInWithGithub} className='text-sm bg-gray-500 '>
             LOGIN WITH GITHUB
-          </button>
-          <button className='bg-slate-500 p-3 text-sm '>
-            LOGIN WITH GOOGLE
-          </button>
+          </Button>
+          <Button className='text-sm '>LOGIN WITH GOOGLE</Button>
         </>
       )}
     </div>
