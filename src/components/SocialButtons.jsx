@@ -2,10 +2,17 @@ import { signInWithPopup } from 'firebase/auth'
 import { ref, set } from 'firebase/database'
 import { doc, setDoc } from 'firebase/firestore'
 import { useLocation } from 'wouter'
-import { auth, database, db, provider } from '../../firebase'
+import { auth, database, GithubProvider, GoogleProvider } from '../../firebase'
 import useStore from '../../store'
 import Button from './Button'
-
+import GoogleWord from './GoogleWord'
+const ERRORS = {
+  'auth/invalid-email': 'Email inválido',
+  'auth/user-disabled': 'Usuario deshabilitado',
+  'auth/user-not-found': 'Usuario no encontrado',
+  'auth/account-exists-with-different-credential':
+    'Ya existe una cuenta con ese email, inicia sesion con otro proveedor'
+}
 export default function SocialButtons({ className = '' }) {
   const { user, setUser, setError } = useStore((state) => ({
     user: state.user,
@@ -13,7 +20,7 @@ export default function SocialButtons({ className = '' }) {
     setError: state.setError
   }))
 
-  const signInWithGithub = () => {
+  const signInWith = (provider) => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user
@@ -26,9 +33,10 @@ export default function SocialButtons({ className = '' }) {
         setUser(user)
       })
       .catch((error) => {
-        const errorMessage = error.message
-        setError(errorMessage)
-        console.error(errorMessage)
+        const errorMessage = error.code
+        setError(ERRORS[errorMessage] || errorMessage)
+        setTimeout(() => setError(null), 3000)
+        console.error(error)
       })
   }
   return (
@@ -37,10 +45,18 @@ export default function SocialButtons({ className = '' }) {
         <p>Logged in as {user.displayName}</p>
       ) : (
         <>
-          <Button onClick={signInWithGithub} className='text-sm bg-gray-500 '>
+          <Button
+            onClick={() => signInWith(GithubProvider)}
+            className='text-sm bg-gray-500 shadow-gray-600'
+          >
             LOGIN WITH GITHUB
           </Button>
-          <Button className='text-sm '>LOGIN WITH GOOGLE</Button>
+          <Button
+            onClick={() => signInWith(GoogleProvider)}
+            className='text-sm text-slate-600 bg-gray-100 shadow-gray-300 flex flex-col min-w-[50%] items-center justify-center'
+          >
+            LOGIN WITH <GoogleWord />
+          </Button>
         </>
       )}
     </div>

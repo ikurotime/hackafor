@@ -1,13 +1,13 @@
-export default function Button(props) {
-  const { children, className = '' } = props
+export default function Button({ children, className, onClick }) {
   return (
     <button
+      onClick={onClick}
       className={
-        `p-3 bg-slate-500 shadow-[0_5px] shadow-slate-600 hover:scale-105 active:shadow-none active:translate-y-1 transition-all text-white ` +
-        props.className
+        `p-3 shadow-[0_5px] hover:scale-105 active:shadow-none active:translate-y-1 transition-all ` +
+        className
       }
     >
-      {props.children}
+      {children}
     </button>
   )
 }

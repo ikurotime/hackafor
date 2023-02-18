@@ -8,19 +8,19 @@ export default function Menu() {
     <>
       <Button
         onClick={() => setLocation('/singleplayer')}
-        className='bg-green-600 p-3 text-center'
+        className='bg-green-500 shadow-green-600 p-3 text-center'
       >
         Haz Jolin en solitario
       </Button>
       <Button
         onClick={() => setLocation('/multiplayer')}
-        className='bg-yellow-600 p-3'
+        className='bg-yellow-500 shadow-yellow-600 p-3'
       >
         Jolinea con gente
       </Button>
       <Button
         onClick={() => setLocation('/ranking')}
-        className='bg-blue-600 p-3'
+        className='bg-blue-500 shadow-blue-600 p-3'
       >
         Ranking
       </Button>

@@ -1,8 +1,4 @@
-import { GithubAuthProvider, signInWithPopup } from 'firebase/auth'
-import { useLocation } from 'wouter'
-import { auth, provider } from '../firebase'
 import './App.css'
-import Button from './components/Button'
 import LogOut from './components/LogOut'
 import Menu from './components/Menu'
 import SocialButtons from './components/SocialButtons'
