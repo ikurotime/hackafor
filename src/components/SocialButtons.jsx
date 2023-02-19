@@ -1,5 +1,5 @@
 import { signInWithPopup } from 'firebase/auth'
-import { ref, set } from 'firebase/database'
+import { child, get, getDatabase, ref, set } from 'firebase/database'
 import { doc, setDoc } from 'firebase/firestore'
 import { useLocation } from 'wouter'
 import { auth, database, GithubProvider, GoogleProvider } from '../../firebase'
@@ -23,14 +23,25 @@ export default function SocialButtons({ className = '' }) {
   const signInWith = (provider) => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        const user = result.user
         /* setDoc(doc(db, 'users', user.uid), {
           displayName: user.displayName
         }) */
-        set(ref(database, 'users/' + user.uid), {
-          displayName: user.displayName
-        })
-        setUser(user)
+        console.log(result.user.uid)
+        setUser(result.user)
+        get(child(ref(getDatabase()), `users/${result.user.uid}`))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              console.log(snapshot.val())
+            } else {
+              set(ref(database, 'users/' + result.user.uid), {
+                displayName: result.user.displayName
+              })
+              console.log('No data available')
+            }
+          })
+          .catch((error) => {
+            console.error(error)
+          })
       })
       .catch((error) => {
         const errorMessage = error.code
