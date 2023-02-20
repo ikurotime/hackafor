@@ -1,6 +1,6 @@
 import { Route } from 'wouter'
 import Index from './Index'
-import Multiplayer from './Multiplayer'
+import Lobby from './Lobby'
 import Ranking from './Ranking'
 import Singleplayer from './Singleplayer'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -28,8 +28,9 @@ export default function App() {
     <>
       <Route path='/' component={Index} />
       <Route path='/singleplayer' component={Singleplayer} />
-      <Route path='/multiplayer' component={Multiplayer} />
+      <Route path='/lobby' component={Lobby} />
       <Route path='/ranking' component={Ranking} />
+      <Route path='/:id' component={Singleplayer} />
       <Snackbar />
     </>
   )

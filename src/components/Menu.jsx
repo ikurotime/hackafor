@@ -13,7 +13,7 @@ export default function Menu() {
         Haz Jolin en solitario
       </Button>
       <Button
-        onClick={() => setLocation('/multiplayer')}
+        onClick={() => setLocation('/lobby')}
         className='bg-yellow-500 shadow-yellow-600 p-3'
       >
         Jolinea con gente
