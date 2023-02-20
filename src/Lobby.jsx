@@ -14,17 +14,16 @@ const api = {
 
 export default function Lobby() {
   const [id, setId] = useState('')
-  const { push } = useLocation()
+  const [, setLocation] = useLocation()
 
   function handleJoin() {
-    console.log('Joining room', id)
-    push(`/${id}`)
+    setLocation(`/${id}`)
   }
 
   async function handleCreate() {
     const room = await api.room.create(id)
 
-    push(`/${room}`)
+    setLocation(`/${room}`)
   }
 
   return (
