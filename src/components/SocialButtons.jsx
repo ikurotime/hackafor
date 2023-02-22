@@ -19,7 +19,7 @@ export default function SocialButtons({ className = '' }) {
     setUser: state.setUser,
     setError: state.setError
   }))
-
+  const [location, setLocation] = useLocation()
   const signInWith = (provider) => {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -52,8 +52,13 @@ export default function SocialButtons({ className = '' }) {
   }
   return (
     <div className={'flex gap-3 ' + className}>
+      {location !== '/' && (
+        <button onClick={() => setLocation('/')}>back</button>
+      )}
       {user ? (
-        <p>Logged in as {user.displayName}</p>
+        <p className='max-w-[300px]'>
+          Logged in as: <br /> {user.displayName}
+        </p>
       ) : (
         <>
           <Button
