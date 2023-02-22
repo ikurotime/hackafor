@@ -7,10 +7,7 @@ export default function LogOut() {
   const logout = () => auth.signOut()
 
   return user ? (
-    <Button
-      className='bg-red-400 shadow-red-500 absolute top-10 right-10'
-      onClick={logout}
-    >
+    <Button className='bg-red-400 shadow-red-500' onClick={logout}>
       Log out
     </Button>
   ) : null

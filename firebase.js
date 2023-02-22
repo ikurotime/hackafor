@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app'
 import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth'
 import { getAuth } from 'firebase/auth'
+import { getStorage } from 'firebase/storage'
 import { getDatabase } from 'firebase/database'
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
 // TODO: Add SDKs for Firebase products that you want to use
@@ -28,5 +29,6 @@ const appCheck = initializeAppCheck(app, {
 export const GithubProvider = new GithubAuthProvider()
 export const GoogleProvider = new GoogleAuthProvider()
 export const auth = getAuth(app)
+export const storage = getStorage(app)
 export const database = getDatabase(app)
 export default app

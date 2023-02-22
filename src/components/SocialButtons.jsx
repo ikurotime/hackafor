@@ -23,9 +23,6 @@ export default function SocialButtons({ className = '' }) {
   const signInWith = (provider) => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        /* setDoc(doc(db, 'users', user.uid), {
-          displayName: user.displayName
-        }) */
         console.log(result.user.uid)
         setUser(result.user)
         get(child(ref(getDatabase()), `users/${result.user.uid}`))
@@ -34,6 +31,7 @@ export default function SocialButtons({ className = '' }) {
               console.log(snapshot.val())
             } else {
               set(ref(database, 'users/' + result.user.uid), {
+                avatar_url: 'gs://hackafor.appspot.com/avatar/goku.png',
                 displayName: result.user.displayName
               })
               console.log('No data available')

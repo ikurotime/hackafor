@@ -1,21 +1,20 @@
 import './App.css'
 import LogOut from './components/LogOut'
 import Menu from './components/Menu'
-import SettingsButton from './components/SettingsButton'
 import SocialButtons from './components/SocialButtons'
-function Index() {
+function Settings() {
   return (
     <div className='App '>
       <div className='Container relative gap-8 '>
-        <SettingsButton />
-        <h1 className='text-3xl md:text-5xl'>ElJolinJuego</h1>
+        <h1 className='text-3xl md:text-5xl'>Settings</h1>
         <div className='flex flex-col  gap-10 p-5'>
-          <SocialButtons />
-          <Menu />
+          <SocialButtons className='absolute top-10 left-10' />
+          <p>Avatar:</p>
+          <LogOut />
         </div>
       </div>
     </div>
-  )
+)
 }
 
-export default Index
+export default Settings

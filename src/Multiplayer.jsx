@@ -7,6 +7,7 @@ import useStore from '../store'
 import Button from './components/Button'
 import LogOut from './components/LogOut'
 import SocialButtons from './components/SocialButtons'
+import SettingsButton from './components/SettingsButton'
 
 export default function Multiplayer() {
   const { user } = useStore((state) => ({
@@ -52,7 +53,8 @@ export default function Multiplayer() {
   return (
     <div className='App'>
       <div className='Container relative gap-8 '>
-        <LogOut />
+        <SettingsButton />
+
         <SocialButtons className={'absolute top-10 left-10'} />
         <h1>Multiplayer</h1>
         <article className='grid grid-cols-2 gap-8'>

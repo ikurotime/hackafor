@@ -54,3 +54,6 @@
     animation: none;
   }
 }
+#id_avatar {
+  image-rendering: pixelated;
+}
