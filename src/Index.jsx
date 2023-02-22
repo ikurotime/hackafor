@@ -5,16 +5,14 @@ import SettingsButton from './components/SettingsButton'
 import SocialButtons from './components/SocialButtons'
 function Index() {
   return (
-    <div className='App '>
-      <div className='Container relative gap-8 '>
-        <SettingsButton />
-        <h1 className='text-3xl md:text-5xl'>ElJolinJuego</h1>
-        <div className='flex flex-col  gap-10 p-5'>
-          <SocialButtons />
-          <Menu />
-        </div>
+    <>
+      <SettingsButton />
+      <h1 className='text-3xl md:text-5xl'>ElJolinJuego</h1>
+      <div className='flex flex-col  gap-10 p-5'>
+        <SocialButtons />
+        <Menu />
       </div>
-    </div>
+    </>
   )
 }
 

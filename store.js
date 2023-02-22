@@ -6,7 +6,9 @@ const useStore = create(
     user: null,
     setUser: (user) => set({ user }),
     error: null,
-    setError: (error) => set({ error })
+    setError: (error) => set({ error }),
+    imageUrl: null,
+    setImageUrl: (imageUrl) => set({ imageUrl })
   }))
 )
 

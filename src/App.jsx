@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import Snackbar from './components/Snackbar'
 import { Switch } from 'wouter'
 import Settings from './Settings'
+import Layout from './components/Layout'
 
 export default function App() {
   const setUser = useStore((state) => state.setUser)
@@ -27,7 +28,7 @@ export default function App() {
   }, [])
 
   return (
-    <>
+    <Layout>
       <Switch>
         <Route path='/' component={Index} />
         <Route path='/singleplayer' component={Singleplayer} />
@@ -36,7 +37,6 @@ export default function App() {
         <Route path='/settings' component={Settings} />
         <Route path='/:id' component={Multiplayer} />
       </Switch>
-      <Snackbar />
-    </>
+    </Layout>
   )
 }

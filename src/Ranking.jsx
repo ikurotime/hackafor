@@ -1,6 +1,7 @@
 import { onValue, ref } from 'firebase/database'
 import { useState, useEffect } from 'react'
 import { database } from '../firebase'
+import Layout from './components/Layout'
 import LogOut from './components/LogOut'
 import SettingsButton from './components/SettingsButton'
 import SocialButtons from './components/SocialButtons'
@@ -32,21 +33,17 @@ export default function Ranking() {
   const roomsRef = ref(database, `rooms`) || null
 
   return (
-    <div className='App'>
-      <div className='Container relative gap-8 '>
-        <SettingsButton />
-
-        <SocialButtons className={'absolute top-10 left-10'} />
-        <h1>Ranking</h1>
-        <ul className=''>
-          {rooms.map(({ id, count }) => (
-            <li className='flex gap-4' key={id}>
-              <h2> {id}:</h2>{' '}
-              <span className='group-active:scale-110'>{count ?? 0}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <>
+      <SocialButtons className={'absolute top-10 left-10'} />
+      <h1>Ranking</h1>
+      <ul className=''>
+        {rooms.map(({ id, count }) => (
+          <li className='flex gap-4' key={id}>
+            <h2> {id}:</h2>{' '}
+            <span className='group-active:scale-110'>{count ?? 0}</span>
+          </li>
+        ))}
+      </ul>
+    </>
   )
 }

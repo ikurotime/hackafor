@@ -51,30 +51,26 @@ export default function Multiplayer() {
   console.log('count, users:', count, users)
 
   return (
-    <div className='App'>
-      <div className='Container relative gap-8 '>
-        <SettingsButton />
-
-        <SocialButtons className={'absolute top-10 left-10'} />
-        <h1>Multiplayer</h1>
-        <article className='grid grid-cols-2 gap-8'>
-          {users &&
-            Object.entries(users).map(([id, { jolin: count }]) => (
-              <div className='flex gap-3' key={id}>
-                <h2> Jolines {id === user.uid && `(tu)`}:</h2>{' '}
-                <span className='group-active:scale-110'>{count ?? 0}</span>
-              </div>
-            ))}
-        </article>
-        <div className='flex flex-col items-center gap-5 group'>
-          <Button
-            onClick={sendJolin}
-            className='p-3 bg-orange-400 shadow-orange-500'
-          >
-            JOLIN!
-          </Button>
-        </div>
+    <>
+      <SocialButtons className={'absolute top-10 left-10'} />
+      <h1>Multiplayer</h1>
+      <article className='grid grid-cols-2 gap-8'>
+        {users &&
+          Object.entries(users).map(([id, { jolin: count }]) => (
+            <div className='flex gap-3' key={id}>
+              <h2> Jolines {id === user.uid && `(tu)`}:</h2>{' '}
+              <span className='group-active:scale-110'>{count ?? 0}</span>
+            </div>
+          ))}
+      </article>
+      <div className='flex flex-col items-center gap-5 group'>
+        <Button
+          onClick={sendJolin}
+          className='p-3 bg-orange-400 shadow-orange-500'
+        >
+          JOLIN!
+        </Button>
       </div>
-    </div>
+    </>
   )
 }

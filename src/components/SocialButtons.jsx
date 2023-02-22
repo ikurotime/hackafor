@@ -23,15 +23,12 @@ export default function SocialButtons({ className = '' }) {
   const signInWith = (provider) => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log(result.user.uid)
         setUser(result.user)
         get(child(ref(getDatabase()), `users/${result.user.uid}`))
           .then((snapshot) => {
-            if (snapshot.exists()) {
-              console.log(snapshot.val())
-            } else {
+            if (!snapshot.exists()) {
               set(ref(database, 'users/' + result.user.uid), {
-                avatar_url: 'gs://hackafor.appspot.com/avatar/goku.png',
+                avatar: 'feral',
                 displayName: result.user.displayName
               })
               console.log('No data available')
@@ -51,7 +48,12 @@ export default function SocialButtons({ className = '' }) {
   return (
     <div className={'flex gap-3 ' + className}>
       {location !== '/' && (
-        <button onClick={() => setLocation('/')}>back</button>
+        <Button
+          className='bg-gray-500 shadow-gray-600'
+          onClick={() => setLocation('/')}
+        >
+          back
+        </Button>
       )}
       {user ? (
         <p className='max-w-[300px]'>
