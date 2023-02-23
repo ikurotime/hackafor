@@ -19,12 +19,10 @@ export default function Multiplayer() {
     onValue(countRef, (snapshot) => {
       const data = snapshot.val()
       setCount(data)
-      console.log({ data })
     })
     onValue(usersRef, (snapshot) => {
       const data = snapshot.val()
       setUsers(data)
-      console.log({ data })
     })
   }, [user])
 
@@ -44,8 +42,6 @@ export default function Multiplayer() {
     user && set(countRef, count + 1)
     setCount(count + 1)
   }
-
-  console.log('count, users:', count, users)
 
   return (
     <>

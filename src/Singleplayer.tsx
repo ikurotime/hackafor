@@ -26,7 +26,6 @@ export default function Singleplayer() {
     onValue(dbRef, (snapshot) => {
       const data = snapshot.val()
       setJolin(data)
-      console.log({ data })
     })
   }, [user])
 

@@ -16,7 +16,6 @@ export default function Ranking() {
   useEffect(() => {
     onValue(roomsRef, (snapshot) => {
       const data: RoomData = snapshot.val()
-      console.log({ data })
       const jolines = Object.values(data).reduce((users, room) => {
         Object.entries(room).forEach(([user, { jolin: count }]) => {
           if (!users.has(user)) {

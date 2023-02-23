@@ -35,7 +35,6 @@ export default function SocialButtons({ className = '' }) {
                 avatar: 'feral',
                 displayName: result.user.displayName
               })
-              console.log('No data available')
             }
           })
           .catch((error) => {

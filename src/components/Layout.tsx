@@ -15,10 +15,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     if (!user) return
     get(child(dbRef, 'users/' + user?.uid + '/avatar')).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val())
         avatarRef = storageRef(storage, `avatar/${snapshot.val()}.png`)
       } else {
-        console.log('No data available')
         avatarRef = storageRef(storage, 'avatar/goku.png')
       }
       getDownloadURL(avatarRef).then((url) => {
