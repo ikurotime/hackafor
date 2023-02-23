@@ -1,8 +1,14 @@
+import { getStorage, ref } from 'firebase/storage'
+import { useEffect, useState } from 'react'
 import './App.css'
 import LogOut from './components/LogOut'
-import Menu from './components/Menu'
 import SocialButtons from './components/SocialButtons'
+
 function Settings() {
+  const [avatars, setAvatars] = useState([])
+  useEffect(() => {
+    const storageRef = ref(getStorage(), 'avatars')
+  }, [])
   return (
     <>
       <h1 className='text-3xl md:text-5xl'>Settings</h1>

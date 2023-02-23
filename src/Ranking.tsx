@@ -1,17 +1,22 @@
 import { onValue, ref } from 'firebase/database'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { database } from '../firebase'
-import Layout from './components/Layout'
-import LogOut from './components/LogOut'
-import SettingsButton from './components/SettingsButton'
 import SocialButtons from './components/SocialButtons'
 
 export default function Ranking() {
-  const [rooms, setRooms] = useState([])
-
+  const [rooms, setRooms] = useState<any>([])
+  const roomsRef = ref(database, `rooms`) || null
+  interface RoomData {
+    [key: string]: {
+      [key: string]: {
+        jolin: number
+      }
+    }
+  }
   useEffect(() => {
     onValue(roomsRef, (snapshot) => {
-      const data = snapshot.val()
+      const data: RoomData = snapshot.val()
+      console.log({ data })
       const jolines = Object.values(data).reduce((users, room) => {
         Object.entries(room).forEach(([user, { jolin: count }]) => {
           if (!users.has(user)) {
@@ -30,14 +35,12 @@ export default function Ranking() {
     })
   }, [])
 
-  const roomsRef = ref(database, `rooms`) || null
-
   return (
     <>
       <SocialButtons className={'absolute top-10 left-10'} />
       <h1>Ranking</h1>
       <ul className=''>
-        {rooms.map(({ id, count }) => (
+        {rooms.map(({ id, count }: { id: string; count: number }) => (
           <li className='flex gap-4' key={id}>
             <h2> {id}:</h2>{' '}
             <span className='group-active:scale-110'>{count ?? 0}</span>

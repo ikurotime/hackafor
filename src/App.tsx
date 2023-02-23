@@ -1,27 +1,28 @@
-import { Route } from 'wouter'
-import Index from './Index'
-import Lobby from './Lobby'
-import Ranking from './Ranking'
-import Singleplayer from './Singleplayer'
-import Multiplayer from './Multiplayer'
 import { onAuthStateChanged } from 'firebase/auth'
+import { useEffect } from 'react'
+import { Route, Switch } from 'wouter'
 import { auth } from '../firebase'
 import useStore from '../store'
-import { useEffect } from 'react'
-import Snackbar from './components/Snackbar'
-import { Switch } from 'wouter'
-import Settings from './Settings'
 import Layout from './components/Layout'
+import Index from './Index'
+import Lobby from './Lobby'
+import Multiplayer from './Multiplayer'
+import Ranking from './Ranking'
+import Settings from './Settings'
+import Singleplayer from './Singleplayer'
 
 export default function App() {
-  const setUser = useStore((state) => state.setUser)
+  const { setUser, clearUser } = useStore((state) => ({
+    setUser: state.setUser,
+    clearUser: state.clearUser
+  }))
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user)
       } else {
-        setUser(null)
+        clearUser()
       }
     })
     return () => unsubscribe()

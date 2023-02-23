@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { useRouter, useLocation } from 'wouter'
+import { useLocation } from 'wouter'
 
 import Button from './components/Button'
-import SettingsButton from './components/SettingsButton'
 import SocialButtons from './components/SocialButtons'
 
 export default function Lobby() {

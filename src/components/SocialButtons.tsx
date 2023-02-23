@@ -1,12 +1,16 @@
-import { signInWithPopup } from 'firebase/auth'
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup
+} from 'firebase/auth'
 import { child, get, getDatabase, ref, set } from 'firebase/database'
-import { doc, setDoc } from 'firebase/firestore'
 import { useLocation } from 'wouter'
 import { auth, database, GithubProvider, GoogleProvider } from '../../firebase'
 import useStore from '../../store'
 import Button from './Button'
 import GoogleWord from './GoogleWord'
-const ERRORS = {
+
+const ERRORS: { [key: string]: string } = {
   'auth/invalid-email': 'Email inválido',
   'auth/user-disabled': 'Usuario deshabilitado',
   'auth/user-not-found': 'Usuario no encontrado',
@@ -20,7 +24,7 @@ export default function SocialButtons({ className = '' }) {
     setError: state.setError
   }))
   const [location, setLocation] = useLocation()
-  const signInWith = (provider) => {
+  const signInWith = (provider: GoogleAuthProvider | GithubAuthProvider) => {
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user)
@@ -39,8 +43,10 @@ export default function SocialButtons({ className = '' }) {
           })
       })
       .catch((error) => {
-        const errorMessage = error.code
-        setError(ERRORS[errorMessage] || errorMessage)
+        const errorMessage: any = error.code
+        if (errorMessage in ERRORS)
+          setError(ERRORS[errorMessage] || errorMessage)
+
         setTimeout(() => setError(null), 3000)
         console.error(error)
       })

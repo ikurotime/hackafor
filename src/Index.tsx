@@ -1,5 +1,4 @@
 import './App.css'
-import LogOut from './components/LogOut'
 import Menu from './components/Menu'
 import SettingsButton from './components/SettingsButton'
 import SocialButtons from './components/SocialButtons'

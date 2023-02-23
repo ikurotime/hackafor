@@ -1,13 +1,10 @@
-import { child, get, getDatabase, onValue, ref, set } from 'firebase/database'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import { auth, database } from '../firebase'
+import { onValue, ref, set } from 'firebase/database'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
+import { database } from '../firebase'
 import useStore from '../store'
 import Button from './components/Button'
-import LogOut from './components/LogOut'
 import SocialButtons from './components/SocialButtons'
-import SettingsButton from './components/SettingsButton'
 
 export default function Multiplayer() {
   const { user } = useStore((state) => ({

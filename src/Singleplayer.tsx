@@ -1,21 +1,8 @@
-import {
-  child,
-  get,
-  getDatabase,
-  onValue,
-  ref,
-  set,
-  update
-} from 'firebase/database'
-import { getDownloadURL, ref as dbRef, getStorage } from 'firebase/storage'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import { auth, database } from '../firebase'
+import { onValue, ref, set } from 'firebase/database'
+import { useEffect, useState } from 'react'
+import { database } from '../firebase'
 import useStore from '../store'
 import Button from './components/Button'
-import Layout from './components/Layout'
-import LogOut from './components/LogOut'
-import SettingsButton from './components/SettingsButton'
 import SocialButtons from './components/SocialButtons'
 
 export default function Singleplayer() {
@@ -54,7 +41,7 @@ export default function Singleplayer() {
         </div>
         <img
           id='id_avatar'
-          src={imageUrl}
+          src={imageUrl as string}
           className='avatar-bg w-48  h-48 aspect-square  text-black items-center flex p-3 group-active:-translate-y-1 transition-transform'
         />
 

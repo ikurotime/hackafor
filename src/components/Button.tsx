@@ -1,4 +1,16 @@
-export default function Button({ children, className, onClick, tabIndex = 0 }) {
+interface ButtonProps {
+  children: React.ReactNode
+  className?: string
+  onClick?: () => void
+  tabIndex?: number
+}
+
+export default function Button({
+  children,
+  className,
+  onClick,
+  tabIndex = 0
+}: ButtonProps) {
   return (
     <button
       onClick={onClick}

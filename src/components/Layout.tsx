@@ -5,7 +5,7 @@ import useStore from '../../store'
 import SettingsButton from './SettingsButton'
 import Snackbar from './Snackbar'
 
-export default function Layout({ children }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const user = useStore((state) => state.user)
   const setImageUrl = useStore((state) => state.setImageUrl)
   const dbRef = databaseRef(getDatabase())
