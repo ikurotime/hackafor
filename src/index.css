@@ -54,6 +54,6 @@
     animation: none;
   }
 }
-#id_avatar {
+.avatar {
   image-rendering: pixelated;
 }

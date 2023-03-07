@@ -39,9 +39,8 @@ export default function Singleplayer() {
           <span className='group-active:scale-110'>{jolin}</span>
         </div>
         <img
-          id='id_avatar'
           src={imageUrl as string}
-          className='avatar-bg w-48  h-48 aspect-square  text-black items-center flex p-3 group-active:-translate-y-1 transition-transform'
+          className='avatar avatar-bg w-48  h-48 aspect-square  text-black items-center flex p-3 group-active:-translate-y-1 transition-transform'
         />
 
         <Button

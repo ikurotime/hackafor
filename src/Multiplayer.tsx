@@ -1,4 +1,4 @@
-import { onValue, ref, set } from 'firebase/database'
+import { onValue, ref, update } from 'firebase/database'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
 import { database } from '../firebase'
@@ -7,8 +7,9 @@ import Button from './components/Button'
 import SocialButtons from './components/SocialButtons'
 
 export default function Multiplayer() {
-  const { user } = useStore((state) => ({
-    user: state.user
+  const { user, imageUrl } = useStore((state) => ({
+    user: state.user,
+    imageUrl: state.imageUrl
   }))
   const [key] = useLocation()
   const [count, setCount] = useState(0)
@@ -18,7 +19,7 @@ export default function Multiplayer() {
     if (!user) return
     onValue(countRef, (snapshot) => {
       const data = snapshot.val()
-      setCount(data)
+      setCount(data.jolin)
     })
     onValue(usersRef, (snapshot) => {
       const data = snapshot.val()
@@ -35,11 +36,16 @@ export default function Multiplayer() {
       </div>
     )
 
-  const countRef = ref(database, `rooms/${key}/${user.uid}/jolin`) || null
+  const countRef = ref(database, `rooms/${key}/${user.uid}`) || null
   const usersRef = ref(database, `rooms/${key}/`) || null
 
   const sendJolin = () => {
-    user && set(countRef, count + 1)
+    user &&
+      update(countRef, {
+        displayName: user.displayName,
+        jolin: count + 1,
+        avatar: imageUrl
+      })
     setCount(count + 1)
   }
 
@@ -49,14 +55,15 @@ export default function Multiplayer() {
       <h1>Multiplayer</h1>
       <article className='grid grid-cols-2 gap-8'>
         {users &&
-          Object.entries(users).map(([id, { jolin: count }]) => (
-            <div className='flex gap-3' key={id}>
-              <h2> Jolines {id === user.uid && `(tu)`}:</h2>{' '}
+          Object.entries(users).map(([id, { jolin: count, displayName }]) => (
+            <div className='flex gap-3 items-center' key={id}>
+              <h2> {id === user.uid ? `(tu)` : displayName}:</h2>{' '}
               <span className='group-active:scale-110'>{count ?? 0}</span>
+              <img className='avatar w-12 h-12' src={imageUrl as string} />
             </div>
           ))}
       </article>
-      <div className='flex flex-col items-center gap-5 group'>
+      <div className='flex flex-col items-center gap-5'>
         <Button
           onClick={sendJolin}
           className='p-3 bg-orange-400 shadow-orange-500'

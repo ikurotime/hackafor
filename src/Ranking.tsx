@@ -10,6 +10,7 @@ export default function Ranking() {
     [key: string]: {
       [key: string]: {
         jolin: number
+        displayName: string
       }
     }
   }
@@ -17,13 +18,16 @@ export default function Ranking() {
     onValue(roomsRef, (snapshot) => {
       const data: RoomData = snapshot.val()
       const jolines = Object.values(data).reduce((users, room) => {
-        Object.entries(room).forEach(([user, { jolin: count }]) => {
-          if (!users.has(user)) {
-            users.set(user, 0)
-          }
+        Object.entries(room).forEach(
+          ([user, { jolin: count, displayName }]) => {
+            if (!users.has(displayName)) {
+              users.set(displayName, 0)
+            }
 
-          users.set(user, users.get(user) + count)
-        })
+            users.set(displayName, users.get(displayName) + count)
+            console.log(users)
+          }
+        )
 
         return users
       }, new Map())
@@ -37,14 +41,24 @@ export default function Ranking() {
   return (
     <>
       <SocialButtons className={'absolute top-10 left-10'} />
-      <h1>Ranking</h1>
+      <h1>Ranking (Rooms)</h1>
       <ul className=''>
-        {rooms.map(({ id, count }: { id: string; count: number }) => (
-          <li className='flex gap-4' key={id}>
-            <h2> {id}:</h2>{' '}
-            <span className='group-active:scale-110'>{count ?? 0}</span>
-          </li>
-        ))}
+        {rooms.map(
+          ({
+            id,
+            count,
+            displayName
+          }: {
+            id: string
+            count: number
+            displayName: string
+          }) => (
+            <li className='flex gap-4' key={id}>
+              <h2> {id}:</h2>{' '}
+              <span className='group-active:scale-110'>{count ?? 0}</span>
+            </li>
+          )
+        )}
       </ul>
     </>
   )
